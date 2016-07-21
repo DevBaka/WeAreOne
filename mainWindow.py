@@ -252,11 +252,14 @@ class WeAreOne(object):
         os.system()
 
     def Play(self):
+        import platform
         if platform.system() == "Linux":
             os.system("audacious -p")
         if platform.system() == "Windows":
             os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")
     def Stop(self):
+
+        import platform
         if platform.system() == "Linux":
             os.system("audacious -u")
         if platform.system() == "Windows":
@@ -267,9 +270,12 @@ class WeAreOne(object):
         startapp = i
 
     def SelectedStream(self, i):
+        import platform
         print("Selected Stream: " + str(i))
+        aplatform = platform.system()
+        print aplatform
         if i == 1:
-            if platform.system() == "Linux":
+            if str(platform.system()) == "Linux":
                 os.system("audacious -H http://listen.technobase.fm/dsl.pls")
             if platform.system() == "Windows":
                 os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play 'http://listen.housetime.fm/dsl.pls'")
