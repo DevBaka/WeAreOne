@@ -13,6 +13,12 @@ class Mainscreen(QMainWindow):
         self.ui = WeAreOne()
         self.ui.setupUi(self)
 
+    def closeEvent(self, QCloseEvent):
+        print "closing QT test"
+        os.system("audacious -s")
+
+
+
 app = QApplication(sys.argv)
 myapp = Mainscreen()
 myapp.show()

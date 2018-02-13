@@ -9,13 +9,15 @@ import urllib2
 import time
 import re
 
+
+
 startapp = 0
 platform = platform.system()
 opend = 0
 selectedMode = 0
 ManAuto = 0
 DJTechnobase = " |  "
-DJHousetime  = "  |  "
+DJHousetime  = " |  "
 DJHardbase   = "   |  "
 DJTrancebase = "  |  "
 DJCoretime   = "   |  "
@@ -94,7 +96,7 @@ class WeAreOne(object):
 
 
 
-
+        # Menuebar die wohl noch nicht funktioniert
         Mainwindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(Mainwindow)
         self.menuBar.setGeometry(QtCore.QRect(0,0,700,30))
@@ -118,6 +120,7 @@ class WeAreOne(object):
          #   opend = opend + 1
         # self.XMLReadTimer(0)
 
+    # XML von Technobase wird ausgelesen
     def readXML(self):
         self.lstStreams.clear()
         url = urllib2.urlopen("http://tray.technobase.fm/radio.xml")
@@ -207,7 +210,7 @@ class WeAreOne(object):
 
         print "baka"
         self.XMLReadTimer()
-
+    # Track speichern
     def saveTrack(self):
         url = urllib2.urlopen("http://tray.technobase.fm/radio.xml")
         tree = ET.parse(url)
@@ -233,6 +236,7 @@ class WeAreOne(object):
                         self.lstTracks.addItem(track)
                         print "succesfully saved"
 
+    # Tracks automatisch speichern
     def activateAutoSave(self):
         global ManAuto
         if ManAuto == 0:
@@ -309,7 +313,6 @@ class WeAreOne(object):
         self.cmdStop.setText(_translate("Mainwindow", "Stop"))
         self.cmdSaveTrack.setText(_translate("Mainwindow", "Aktuellen Track Speichern"))
         self.cmdAutoSave.setText(_translate("Mainwindow", "Tracks Automatisch Speichern Aktivieren"))
-
 
 
 
