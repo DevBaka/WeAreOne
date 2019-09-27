@@ -8,6 +8,7 @@ import xml.etree.ElementTree as ET
 import urllib2
 import time
 import re
+import subprocess
 
 
 
@@ -258,14 +259,16 @@ class WeAreOne(object):
     def Play(self):
         import platform
         if platform.system() == "Linux":
-            os.system("audacious -p")
+            #os.system("audacious -p")
+            play = subprocess.Popen(['audacious', '-p'])
         if platform.system() == "Windows":
             os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")
     def Stop(self):
 
         import platform
         if platform.system() == "Linux":
-            os.system("audacious -u")
+            #os.system("audacious -u")
+            stop = subprocess.Popen(['audacious', '-p'])
         if platform.system() == "Windows":
             os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")
 
@@ -280,31 +283,39 @@ class WeAreOne(object):
         print aplatform
         if i == 1:
             if str(platform.system()) == "Linux":
-                os.system("audacious -H http://listen.technobase.fm/dsl.pls")
+                #os.system("audacious -H http://listen.technobase.fm/dsl.pls")
+                stream1 = subprocess.Popen(['audacious', '-H http://listen.technobase.fm/dsl.pls'])
             if platform.system() == "Windows":
                 os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play 'http://listen.housetime.fm/dsl.pls'")
         if i == 2:
             if platform.system() == "Linux":
+                #stream1 = subprocess.Popen(['audacious', '-H http://listen.housetime.fm/dsl.pls'])
                 os.system("audacious -H http://listen.housetime.fm/dsl.pls")
         if i == 3:
             if platform.system() == "Linux":
-              os.system("audacious -H http://listen.hardbase.fm/dsl.pls")
+                os.system("audacious -H http://listen.hardbase.fm/dsl.pls")
+                #stream1 = subprocess.Popen(['audacious', '-H http://listen.hardbase.fm/dsl.pls'])
         if i == 4:
             if platform.system() == "Linux":
-             os.system("audacious -H http://listen.trancebase.fm/dsl.pls")
+                os.system("audacious -H http://listen.trancebase.fm/dsl.pls")
+                #stream1 = subprocess.Popen(['audacious', '-H http://listen.trancebase.fm/dsl.pls'])
         if i == 5:
             if platform.system() == "Linux":
                 os.system("audacious -H http://listen.coretime.fm/dsl.pls")
+                #stream1 = subprocess.Popen(['audacious', '-H http://listen.coretime.fm/dsl.pls'])
         if i == 6:
             if platform.system() == "Linux":
                 os.system("audacious -H http://listen.clubtime.fm/dsl.pls")
+                #stream1 = subprocess.Popen(['audacious', '-H http://listen.clubtime.fm/dsl.pls'])
         if i == 7:
             if platform.system() == "Linux":
                 os.system("audacious -H http://listen.teatime.fm/dsl.pls")
+                #stream1 = subprocess.Popen(['audacious', '-H http://listen.teatime.fm/dsl.pls'])
 
     def PlayStream(self, streamuri):
         if startapp == 0:
-            os.system("audacious -H " + streamuri)
+            #os.system("audacious -H " + streamuri)
+            playStream = subprocess.Popen(['audacious', '-p ' + streamuri])
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
