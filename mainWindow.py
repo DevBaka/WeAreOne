@@ -3,6 +3,8 @@
 import os
 import threading
 from PyQt5 import QtCore, QtGui, QtWidgets
+#from pyqt5 import QtCore, QtGui, QtWidgets
+#from pyqt import QtCore, QtGui, QtWidgets
 import platform
 import xml.etree.ElementTree as ET
 import urllib2
@@ -23,6 +25,7 @@ DJHardbase   = "   |  "
 DJTrancebase = "  |  "
 DJCoretime   = "   |  "
 DJClubtime   = "    |  "
+selectedStream = 0
 
 class WeAreOne(object):
     def setupUi(self, Mainwindow):
@@ -256,19 +259,14 @@ class WeAreOne(object):
     def Volume(self, i):
         os.system()
 
-    def Play(self):
-        import platform
-        if platform.system() == "Linux":
-            #os.system("audacious -p")
-            play = subprocess.Popen(['audacious', '-p'])
-        if platform.system() == "Windows":
-            os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")
+
     def Stop(self):
 
         import platform
         if platform.system() == "Linux":
             #os.system("audacious -u")
-            stop = subprocess.Popen(['audacious', '-p'])
+            #stop = subprocess.Popen(['audacious', '-p'])
+            os.system("screen -r 'tb' -X quit")
         if platform.system() == "Windows":
             os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")
 
@@ -276,41 +274,74 @@ class WeAreOne(object):
         global startapp
         startapp = i
 
-    def SelectedStream(self, i):
+    def StartStream(self, i):
         import platform
-        print("Selected Stream: " + str(i))
         aplatform = platform.system()
         print aplatform
+        global selectedStream
+        print "stream: " + str(i)
+        print "sstream1: " + str(selectedStream)
+
         if i == 1:
+            print "hello tb without linux"
             if str(platform.system()) == "Linux":
-                #os.system("audacious -H http://listen.technobase.fm/dsl.pls")
-                stream1 = subprocess.Popen(['audacious', '-H http://listen.technobase.fm/dsl.pls'])
+                os.system("screen -r 'tb' -X quit")
+                os.system("screen -mdS tb audacious -H http://listen.technobase.fm/dsl.pls")
+                # stream1 = subprocess.Popen(['audacious', '-H http://listen.technobase.fm/dsl.pls'])
+                print "hello tb"
             if platform.system() == "Windows":
                 os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play 'http://listen.housetime.fm/dsl.pls'")
         if i == 2:
             if platform.system() == "Linux":
-                #stream1 = subprocess.Popen(['audacious', '-H http://listen.housetime.fm/dsl.pls'])
-                os.system("audacious -H http://listen.housetime.fm/dsl.pls")
+                # stream1 = subprocess.Popen(['audacious', '-H http://listen.housetime.fm/dsl.pls'])
+                os.system("screen -r 'tb' -X quit")
+                os.system("screen -mdS tb audacious -H http://listen.housetime.fm/dsl.pls")
+                print "hello hl"
         if i == 3:
             if platform.system() == "Linux":
-                os.system("audacious -H http://listen.hardbase.fm/dsl.pls")
-                #stream1 = subprocess.Popen(['audacious', '-H http://listen.hardbase.fm/dsl.pls'])
+                os.system("screen -r 'tb' -X quit")
+                os.system("screen -mdS tb audacious -H http://listen.hardbase.fm/dsl.pls")
+                # stream1 = subprocess.Popen(['audacious', '-H http://listen.hardbase.fm/dsl.pls'])
         if i == 4:
             if platform.system() == "Linux":
-                os.system("audacious -H http://listen.trancebase.fm/dsl.pls")
-                #stream1 = subprocess.Popen(['audacious', '-H http://listen.trancebase.fm/dsl.pls'])
+                os.system("screen -r 'tb' -X quit")
+                os.system("screen -mdS tb audacious -H http://listen.trancebase.fm/dsl.pls")
+                # stream1 = subprocess.Popen(['audacious', '-H http://listen.trancebase.fm/dsl.pls'])
         if i == 5:
             if platform.system() == "Linux":
-                os.system("audacious -H http://listen.coretime.fm/dsl.pls")
-                #stream1 = subprocess.Popen(['audacious', '-H http://listen.coretime.fm/dsl.pls'])
+                os.system("screen -r 'tb' -X quit")
+                os.system("screen -mdS tb audacious -H http://listen.coretime.fm/dsl.pls")
+                # stream1 = subprocess.Popen(['audacious', '-H http://listen.coretime.fm/dsl.pls'])
         if i == 6:
             if platform.system() == "Linux":
-                os.system("audacious -H http://listen.clubtime.fm/dsl.pls")
-                #stream1 = subprocess.Popen(['audacious', '-H http://listen.clubtime.fm/dsl.pls'])
+                os.system("screen -r 'tb' -X quit")
+                os.system("screen -mdS tb audacious -H http://listen.clubtime.fm/dsl.pls")
+                # stream1 = subprocess.Popen(['audacious', '-H http://listen.clubtime.fm/dsl.pls'])
         if i == 7:
             if platform.system() == "Linux":
-                os.system("audacious -H http://listen.teatime.fm/dsl.pls")
-                #stream1 = subprocess.Popen(['audacious', '-H http://listen.teatime.fm/dsl.pls'])
+                os.system("screen -r 'tb' -X quit")
+                os.system("screen -mdS tb audacious -H http://listen.teatime.fm/dsl.pls")
+                # stream1 = subprocess.Popen(['audacious', '-H http://listen.teatime.fm/dsl.pls'])
+
+    def SelectedStream(self, i):
+        import platform
+        global selectedStream
+        selectedStream = i
+        print("Selected Stream: " + str(i))
+        self.StartStream(i)
+
+    def Play(self):
+        import platform
+        if platform.system() == "Linux":
+            #os.system("audacious -p")
+            #play = subprocess.Popen(['audacious', '-p'])
+            #os.system("screen -r 'tb' -X quit")
+            #os.system("screen -mdS tb audacious -H http://listen.technobase.fm/dsl.pls")
+            global selectedStream
+            print "Play SelectedStream: " + str(selectedStream)
+            self.StartStream(selectedStream)
+        if platform.system() == "Windows":
+            os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")
 
     def PlayStream(self, streamuri):
         if startapp == 0:
