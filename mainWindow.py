@@ -3,14 +3,9 @@
 import os
 import threading
 from PyQt5 import QtCore, QtGui, QtWidgets
-#from pyqt5 import QtCore, QtGui, QtWidgets
-#from pyqt import QtCore, QtGui, QtWidgets
 import platform
 import xml.etree.ElementTree as ET
-#import urllib
 from urllib.request import urlopen
-import time
-import re
 import subprocess
 
 
@@ -120,23 +115,16 @@ class WeAreOne(object):
         self.retranslateUi(Mainwindow)
         QtCore.QMetaObject.connectSlotsByName(Mainwindow)
         self.readXML()
-       # if opend == 0:
-        #    self.readXML()
-         #   opend = opend + 1
-        # self.XMLReadTimer(0)
 
     # XML von Technobase wird ausgelesen
     def readXML(self):
         self.lstStreams.clear()
-        #url = urllib2.urlopen("http://tray.technobase.fm/radio.xml")
-        #url = urllib.request("http://tray.technobase.fm/radio.xml")
         url = urlopen("http://tray.technobase.fm/radio.xml")
 
         tree = ET.parse(url)
         root = tree.getroot()
         trackinlist = 0
         i = self.cbShowInfos.currentIndex()
-        print('index: ' + str(i))
         if i == 0:
             for radio in root.findall('radio'):
                 sender = radio.find('name').text
@@ -218,7 +206,6 @@ class WeAreOne(object):
         self.XMLReadTimer()
     # Track speichern
     def saveTrack(self):
-        #url = urllib.urlopen("http://tray.technobase.fm/radio.xml")
         url = urlopen("http://tray.technobase.fm/radio.xml")
         tree = ET.parse(url)
         root = tree.getroot()
@@ -290,8 +277,6 @@ class WeAreOne(object):
             if str(platform.system()) == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.technobase.fm/dsl.pls")
-                # stream1 = subprocess.Popen(['audacious', '-H http://listen.technobase.fm/dsl.pls'])
-                print("hello tb")
             if platform.system() == "Windows":
                 os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play 'http://listen.housetime.fm/dsl.pls'")
         if i == 2:
@@ -299,47 +284,35 @@ class WeAreOne(object):
                 # stream1 = subprocess.Popen(['audacious', '-H http://listen.housetime.fm/dsl.pls'])
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.housetime.fm/dsl.pls")
-                print("hello hl")
         if i == 3:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.hardbase.fm/dsl.pls")
-                # stream1 = subprocess.Popen(['audacious', '-H http://listen.hardbase.fm/dsl.pls'])
         if i == 4:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.trancebase.fm/dsl.pls")
-                # stream1 = subprocess.Popen(['audacious', '-H http://listen.trancebase.fm/dsl.pls'])
         if i == 5:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.coretime.fm/dsl.pls")
-                # stream1 = subprocess.Popen(['audacious', '-H http://listen.coretime.fm/dsl.pls'])
         if i == 6:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.clubtime.fm/dsl.pls")
-                # stream1 = subprocess.Popen(['audacious', '-H http://listen.clubtime.fm/dsl.pls'])
         if i == 7:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.teatime.fm/dsl.pls")
-                # stream1 = subprocess.Popen(['audacious', '-H http://listen.teatime.fm/dsl.pls'])
 
     def SelectedStream(self, i):
-        import platform
         global selectedStream
         selectedStream = i
         print("Selected Stream: " + str(i))
         self.StartStream(i)
 
     def Play(self):
-        import platform
         if platform.system() == "Linux":
-            #os.system("audacious -p")
-            #play = subprocess.Popen(['audacious', '-p'])
-            #os.system("screen -r 'tb' -X quit")
-            #os.system("screen -mdS tb audacious -H http://listen.technobase.fm/dsl.pls")
             global selectedStream
             print("Play SelectedStream: " + str(selectedStream))
             self.StartStream(selectedStream)
@@ -348,7 +321,6 @@ class WeAreOne(object):
 
     def PlayStream(self, streamuri):
         if startapp == 0:
-            #os.system("audacious -H " + streamuri)
             playStream = subprocess.Popen(['audacious', '-p ' + streamuri])
 
     def retranslateUi(self, MainWindow):
