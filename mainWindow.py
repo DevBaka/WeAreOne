@@ -7,7 +7,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 #from pyqt import QtCore, QtGui, QtWidgets
 import platform
 import xml.etree.ElementTree as ET
-import urllib2
+#import urllib
+from urllib.request import urlopen
 import time
 import re
 import subprocess
@@ -127,12 +128,15 @@ class WeAreOne(object):
     # XML von Technobase wird ausgelesen
     def readXML(self):
         self.lstStreams.clear()
-        url = urllib2.urlopen("http://tray.technobase.fm/radio.xml")
+        #url = urllib2.urlopen("http://tray.technobase.fm/radio.xml")
+        #url = urllib.request("http://tray.technobase.fm/radio.xml")
+        url = urlopen("http://tray.technobase.fm/radio.xml")
+
         tree = ET.parse(url)
         root = tree.getroot()
         trackinlist = 0
         i = self.cbShowInfos.currentIndex()
-        print i
+        print('index: ' + str(i))
         if i == 0:
             for radio in root.findall('radio'):
                 sender = radio.find('name').text
@@ -154,7 +158,6 @@ class WeAreOne(object):
                     track = ""
                     tvar = ""
                 if sender == "TechnoBase   ":
-                    print "hello world"
                     item = sender + DJTechnobase + str(mod) + tvar + track
                     self.lstStreams.addItem(item)
                 if sender == "HouseTime    ":
@@ -178,7 +181,7 @@ class WeAreOne(object):
             filen = akstream + ".txt"
             for radio in root.findall('radio'):
                 if radio.find('name').text == akstream:
-                    print akstream
+                    print(akstream)
                     aktrack = str(radio.find('artist').text) + " - " + str(radio.find('song').text)
                     try:
                         with open(filen,"r") as f:
@@ -188,7 +191,7 @@ class WeAreOne(object):
                     except:
                         with open(filen, "w+") as f:
                             f.close()
-                    print "aktuell" + aktrack
+                    print("aktuell" + aktrack)
                     if trackinlist == 0:
                         with open(filen, "a") as f:
                             f.write(aktrack + "\n")
@@ -198,7 +201,7 @@ class WeAreOne(object):
             astream = self.cbStreams.currentText()
             for radio in root.findall('radio'):
                 if radio.find('name').text == astream:
-                    print "find it!" + astream
+                    print("find it!" + astream)
                     mod = str(radio.find('moderator').text)
                     showname = str(radio.find('show').text)
                     starttime = str(radio.find('starttime').text)
@@ -212,11 +215,11 @@ class WeAreOne(object):
                     self.lstStreams.addItem("Track: " + artist + " - " + trackname)
                     self.lstStreams.addItem("Listender: " + listender)
 
-        print "baka"
         self.XMLReadTimer()
     # Track speichern
     def saveTrack(self):
-        url = urllib2.urlopen("http://tray.technobase.fm/radio.xml")
+        #url = urllib.urlopen("http://tray.technobase.fm/radio.xml")
+        url = urlopen("http://tray.technobase.fm/radio.xml")
         tree = ET.parse(url)
         root = tree.getroot()
         astream = self.cbStreams.currentText()
@@ -233,12 +236,12 @@ class WeAreOne(object):
                 except:
                     with open(filen, "w+") as f:
                         f.close()
-                print "aktuell" + track
+                print("aktuell" + track)
                 if trackinlist == 0:
                     with open(filen, "a") as f:
                         f.write(track + "\n")
                         self.lstTracks.addItem(track)
-                        print "succesfully saved"
+                        print("succesfully saved")
 
     # Tracks automatisch speichern
     def activateAutoSave(self):
@@ -248,7 +251,7 @@ class WeAreOne(object):
             self.cmdAutoSave.setText("Tracks Automatisch Speichern Deativieren")
         else:
             ManAuto = 0
-            print "autosave deaktiviert"
+            print("autosave deaktiviert")
             self.cmdAutoSave.setText("Tracks Automatisch Speichern Aktivieren")
 
     def XMLReadTimer(self):
@@ -277,18 +280,18 @@ class WeAreOne(object):
     def StartStream(self, i):
         import platform
         aplatform = platform.system()
-        print aplatform
+        print(aplatform)
         global selectedStream
-        print "stream: " + str(i)
-        print "sstream1: " + str(selectedStream)
+        print("stream: " + str(i))
+        print("sstream1: " + str(selectedStream))
 
         if i == 1:
-            print "hello tb without linux"
+            print("hello tb without linux")
             if str(platform.system()) == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.technobase.fm/dsl.pls")
                 # stream1 = subprocess.Popen(['audacious', '-H http://listen.technobase.fm/dsl.pls'])
-                print "hello tb"
+                print("hello tb")
             if platform.system() == "Windows":
                 os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play 'http://listen.housetime.fm/dsl.pls'")
         if i == 2:
@@ -296,7 +299,7 @@ class WeAreOne(object):
                 # stream1 = subprocess.Popen(['audacious', '-H http://listen.housetime.fm/dsl.pls'])
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.housetime.fm/dsl.pls")
-                print "hello hl"
+                print("hello hl")
         if i == 3:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
@@ -338,7 +341,7 @@ class WeAreOne(object):
             #os.system("screen -r 'tb' -X quit")
             #os.system("screen -mdS tb audacious -H http://listen.technobase.fm/dsl.pls")
             global selectedStream
-            print "Play SelectedStream: " + str(selectedStream)
+            print("Play SelectedStream: " + str(selectedStream))
             self.StartStream(selectedStream)
         if platform.system() == "Windows":
             os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")

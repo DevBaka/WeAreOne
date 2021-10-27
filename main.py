@@ -6,7 +6,7 @@ from mainWindow import WeAreOne , platform
 import platform
 
 platform = platform.system()
-print platform
+print(platform)
 
 class Mainscreen(QMainWindow):
     def __init__(self):
@@ -15,7 +15,7 @@ class Mainscreen(QMainWindow):
         self.ui.setupUi(self)
 
     def closeEvent(self, QCloseEvent):
-        print "closing QT test"
+        print("closing QT test")
         os.system("audacious -s")
         os.system("screen -r 'tb' -X quit")
 
