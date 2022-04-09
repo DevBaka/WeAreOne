@@ -10,8 +10,9 @@ import subprocess
 
 
 
+
 startapp = 0
-platform = platform.system()
+platformInfo = platform.system()
 opend = 0
 selectedMode = 0
 ManAuto = 0
@@ -252,7 +253,6 @@ class WeAreOne(object):
 
     def Stop(self):
 
-        import platform
         if platform.system() == "Linux":
             #os.system("audacious -u")
             #stop = subprocess.Popen(['audacious', '-p'])
@@ -265,7 +265,6 @@ class WeAreOne(object):
         startapp = i
 
     def StartStream(self, i):
-        import platform
         aplatform = platform.system()
         print(aplatform)
         global selectedStream
@@ -312,9 +311,9 @@ class WeAreOne(object):
         self.StartStream(i)
 
     def Play(self):
-        if platform.system() == "Linux":
+        if str(platform.system()) == "Linux":
             global selectedStream
-            print("Play SelectedStream: " + str(selectedStream))
+            print("Play SelectedStream: " , str(selectedStream))
             self.StartStream(selectedStream)
         if platform.system() == "Windows":
             os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")
