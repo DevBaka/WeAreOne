@@ -1,5 +1,7 @@
 import sys
 import os
+
+from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import *
 #from pyqt.QtWidgets import *
 from mainWindow import WeAreOne , platform
@@ -16,9 +18,9 @@ class Mainscreen(QMainWindow):
 
     def closeEvent(self, QCloseEvent):
         print("closing QT test")
-        os.system("audacious -s")
+        os.system("audacious -s -H")
         os.system("screen -r 'tb' -X quit")
-
+        self.ui.quit()
 
 
 app = QApplication(sys.argv)
