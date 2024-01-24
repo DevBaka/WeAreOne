@@ -7,8 +7,7 @@ import platform
 import xml.etree.ElementTree as ET
 from urllib.request import urlopen
 import subprocess
-
-
+import psutil
 
 
 startapp = 0
@@ -258,7 +257,8 @@ class WeAreOne(object):
             #stop = subprocess.Popen(['audacious', '-p'])
             os.system("screen -r 'tb' -X quit")
         if platform.system() == "Windows":
-            os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")
+            #os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play")
+            os.system("C:\Program Files (x86)\Windows Media Player\wmplayer.exe /play")
 
     def setStartApp(self, i):
         global startapp
@@ -277,32 +277,177 @@ class WeAreOne(object):
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.technobase.fm/dsl.pls")
             if platform.system() == "Windows":
-                os.system("C:/Program Files (x86)/Windows Media Player/wmplayer.exe /play 'http://listen.housetime.fm/dsl.pls'")
+                # Versuchen Sie, den bestehenden VLC-Prozess zu finden
+                existing_vlc_processes = [proc for proc in psutil.process_iter(attrs=['pid', 'name']) if
+                                          'vlc.exe' in proc.info['name']]
+
+                # Beenden Sie alle gefundenen VLC-Prozesse
+                for proc in existing_vlc_processes:
+                    try:
+                        psutil.Process(proc.info['pid']).terminate()
+                    except psutil.NoSuchProcess:
+                        pass
+                try:
+                     command = [
+                        "C:\\Program Files\\VideoLan\\VLC\\vlc.exe",
+                         "--no-xlib",
+                        "http://listen.technobase.fm/dsl.pls"
+                     ]
+                     subprocess.Popen(command)
+                except Exception as e:
+                    print(f"Fehler aufgetreten: {e}")
+
+
         if i == 2:
             if platform.system() == "Linux":
                 # stream1 = subprocess.Popen(['audacious', '-H http://listen.housetime.fm/dsl.pls'])
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.housetime.fm/dsl.pls")
+            if platform.system() == "Windows":
+
+                # Versuchen Sie, den bestehenden VLC-Prozess zu finden
+                existing_vlc_processes = [proc for proc in psutil.process_iter(attrs=['pid', 'name']) if
+                                          'vlc.exe' in proc.info['name']]
+
+                # Beenden Sie alle gefundenen VLC-Prozesse
+                for proc in existing_vlc_processes:
+                    try:
+                        psutil.Process(proc.info['pid']).terminate()
+                    except psutil.NoSuchProcess:
+                        pass
+                try:
+                     command = [
+                        "C:\\Program Files\\VideoLan\\VLC\\vlc.exe",
+                         "--no-xlib",
+                        "http://listen.housetime.fm/dsl.pls"
+                     ]
+                     subprocess.Popen(command)
+                except Exception as e:
+                    print(f"Fehler aufgetreten: {e}")
         if i == 3:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.hardbase.fm/dsl.pls")
+            if platform.system() == "Windows":
+
+                # Versuchen Sie, den bestehenden VLC-Prozess zu finden
+                existing_vlc_processes = [proc for proc in psutil.process_iter(attrs=['pid', 'name']) if
+                                          'vlc.exe' in proc.info['name']]
+
+                # Beenden Sie alle gefundenen VLC-Prozesse
+                for proc in existing_vlc_processes:
+                    try:
+                        psutil.Process(proc.info['pid']).terminate()
+                    except psutil.NoSuchProcess:
+                        pass
+                try:
+                     command = [
+                        "C:\\Program Files\\VideoLan\\VLC\\vlc.exe",
+                         "--no-xlib",
+                        "http://listen.hardbase.fm/dsl.pls"
+                     ]
+                     subprocess.Popen(command)
+                except Exception as e:
+                    print(f"Fehler aufgetreten: {e}")
         if i == 4:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.trancebase.fm/dsl.pls")
+            if platform.system() == "Windows":
+
+                # Versuchen Sie, den bestehenden VLC-Prozess zu finden
+                existing_vlc_processes = [proc for proc in psutil.process_iter(attrs=['pid', 'name']) if
+                                          'vlc.exe' in proc.info['name']]
+
+                # Beenden Sie alle gefundenen VLC-Prozesse
+                for proc in existing_vlc_processes:
+                    try:
+                        psutil.Process(proc.info['pid']).terminate()
+                    except psutil.NoSuchProcess:
+                        pass
+                try:
+                     command = [
+                        "C:\\Program Files\\VideoLan\\VLC\\vlc.exe",
+                         "--no-xlib",
+                        "http://listen.trancebase.fm/dsl.pls"
+                     ]
+                     subprocess.Popen(command)
+                except Exception as e:
+                    print(f"Fehler aufgetreten: {e}")
         if i == 5:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.coretime.fm/dsl.pls")
+            if platform.system() == "Windows":
+
+                # Versuchen Sie, den bestehenden VLC-Prozess zu finden
+                existing_vlc_processes = [proc for proc in psutil.process_iter(attrs=['pid', 'name']) if
+                                          'vlc.exe' in proc.info['name']]
+
+                # Beenden Sie alle gefundenen VLC-Prozesse
+                for proc in existing_vlc_processes:
+                    try:
+                        psutil.Process(proc.info['pid']).terminate()
+                    except psutil.NoSuchProcess:
+                        pass
+                try:
+                     command = [
+                        "C:\\Program Files\\VideoLan\\VLC\\vlc.exe",
+                         "--no-xlib",
+                        "http://listen.coretime.fm/dsl.pls"
+                     ]
+                     subprocess.Popen(command)
+                except Exception as e:
+                    print(f"Fehler aufgetreten: {e}")
         if i == 6:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.clubtime.fm/dsl.pls")
+            if platform.system() == "Windows":
+
+                # Versuchen Sie, den bestehenden VLC-Prozess zu finden
+                existing_vlc_processes = [proc for proc in psutil.process_iter(attrs=['pid', 'name']) if
+                                          'vlc.exe' in proc.info['name']]
+
+                # Beenden Sie alle gefundenen VLC-Prozesse
+                for proc in existing_vlc_processes:
+                    try:
+                        psutil.Process(proc.info['pid']).terminate()
+                    except psutil.NoSuchProcess:
+                        pass
+                try:
+                     command = [
+                        "C:\\Program Files\\VideoLan\\VLC\\vlc.exe",
+                         "--no-xlib",
+                        "http://listen.clubtime.fm/dsl.pls"
+                     ]
+                     subprocess.Popen(command)
+                except Exception as e:
+                    print(f"Fehler aufgetreten: {e}")
         if i == 7:
             if platform.system() == "Linux":
                 os.system("screen -r 'tb' -X quit")
                 os.system("screen -mdS tb audacious -H http://listen.teatime.fm/dsl.pls")
+            if platform.system() == "Windows":
+
+                # Versuchen Sie, den bestehenden VLC-Prozess zu finden
+                existing_vlc_processes = [proc for proc in psutil.process_iter(attrs=['pid', 'name']) if
+                                          'vlc.exe' in proc.info['name']]
+
+                # Beenden Sie alle gefundenen VLC-Prozesse
+                for proc in existing_vlc_processes:
+                    try:
+                        psutil.Process(proc.info['pid']).terminate()
+                    except psutil.NoSuchProcess:
+                        pass
+                try:
+                     command = [
+                        "C:\\Program Files\\VideoLan\\VLC\\vlc.exe",
+                        "http://listen.teatime.fm/dsl.pls"
+                     ]
+                     subprocess.Popen(command)
+                except Exception as e:
+                    print(f"Fehler aufgetreten: {e}")
 
     def SelectedStream(self, i):
         global selectedStream
@@ -329,6 +474,3 @@ class WeAreOne(object):
         self.cmdStop.setText(_translate("Mainwindow", "Stop"))
         self.cmdSaveTrack.setText(_translate("Mainwindow", "Aktuellen Track Speichern"))
         self.cmdAutoSave.setText(_translate("Mainwindow", "Tracks Automatisch Speichern Aktivieren"))
-
-
-
